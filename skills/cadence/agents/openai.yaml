@@ -1,0 +1,11 @@
+interface:
+  display_name: "Cadence"
+  short_description: "Create and build Cadence project tickets"
+  default_prompt: "Use $cadence to create a ticket or build specified Cadence tickets."
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "cadence"
+      description: "Cadence project and ticket management"
+      transport: "streamable_http"
+      url: "https://cadence.codecapsules.io/mcp"

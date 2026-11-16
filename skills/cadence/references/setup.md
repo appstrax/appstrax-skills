@@ -1,0 +1,15 @@
+# Setup and capability check
+
+The supplied deployment uses `https://cadence.codecapsules.io/mcp` (Streamable HTTP). Source documents OAuth 2.1 and personal agent bearer tokens. Use the host's supported authentication flow; do not claim authentication works until `whoami` succeeds. For another deployment, use its explicitly configured URL. Do not claim setup is complete merely because this skill is installed.
+
+1. Discover exposed Cadence MCP tools. If absent, explain that the Cadence connection must be installed/enabled and authenticated using the host's supported mechanism. Use verified Cadence connection documentation; never guess an endpoint or request secrets in chat.
+2. Perform a harmless read to confirm connectivity, authenticated identity, and project access. Discover tool schemas and permissions rather than testing writes with disposable production tickets.
+3. Resolve the repository and Cadence project. Verify any saved mapping using the server's project ID and repository identity. If no unique mapping exists, ask the user. Keep credentials out of repository configuration.
+4. Read project capabilities using the [MCP contract](mcp-contract.md). Distinguish absent capabilities from read failures: this inspected version has sprints but no enable flag, no epics, no custom ticket templates, and no structured dependencies. Use the documented current-version behavior; do not silently claim future capabilities exist. Ticket effort uses Fibonacci points: 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610, subject to live schema constraints. Prefer splitting large, independently verifiable outcomes over coarse large estimates.
+5. For build, verify Git remote/base and target branches, available tests, local runtime setup, GitHub access, and the external review mechanism. Use project configuration; otherwise default to `origin/development` and `development` as requested by this workflow. If those branches do not exist, ask rather than substituting another branch.
+6. Resolve `obra/superpowers` and `anthropics/skills` → `frontend-design` from installed metadata, following [dependency integration](dependencies.md). Superpowers is required for build; frontend-design is required for UI work. If unavailable, report the missing dependency before affected work. Do not silently substitute an unrelated skill or auto-download arbitrary packages.
+7. Determine whether trustworthy runtime token usage is available and attributable per ticket. Read [token accounting](tokens.md). Report absent telemetry separately from missing build capabilities.
+
+Return a compact readiness result: project/repository, create readiness, build readiness, token-accounting readiness, and precise missing items. Recheck live authentication and relevant capabilities on use; do not repeatedly ask for stable confirmed choices.
+
+Installation and execution are separate. The distributable plugin should provide reviewed MCP configuration and an explicit dependency installation path. Authentication remains user-specific. The skill itself cannot guarantee installation of another skill by mentioning it.
