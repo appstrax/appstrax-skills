@@ -32,6 +32,8 @@ The skill handles the inspected version honestly: default template, sprint/backl
 
 ## Workflow improvements
 
+- Restored explicit engineering requirements from the original build guide: architecture/reuse investigation; success/failure/edge-case and risk planning; SOLID/DRY/KISS and focused code; validation/error/security handling; observed RED → GREEN → REFACTOR; test integrity; root-cause debugging; real-app and console/network checks; internal review; and automated/manual/criterion re-verification after corrections. These requirements now live directly in the execution reference rather than being implied by a dependency.
+- Restored actionable human testing instructions, staged-file checks, independent assessment of external review findings, and an evidence-based engineering completion gate.
 - Prepare branch/worktree before saving the plan; use safe isolated worktrees for unrelated dirty work.
 - Preserve existing co-assignees when assigning the current user.
 - Separate outcome-focused tickets from execution plans.

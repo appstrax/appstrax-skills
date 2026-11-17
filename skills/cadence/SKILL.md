@@ -12,7 +12,7 @@ Use Cadence MCP tools for all Cadence reads and writes. Use repository tools for
 ## Route the request
 
 - `create <definition>`: read [creation](references/create.md).
-- `build <id>,<id>`: read [execution](references/build.md).
+- `build <id>,<id>`: read the full [execution reference](references/build.md), including its engineering, testing, and review requirements, before planning or implementing.
 - `setup`, or missing configuration: read [setup](references/setup.md).
 - Natural-language requests with these meanings use the same routes. If the intended action is unclear, ask.
 

@@ -50,6 +50,10 @@ Agents that support a `/cadence` command can use the equivalent syntax. You can 
 
 Successful builds leave the ticket **In Review**. Measured Token effort is recorded when the PR has passed review; the workflow does not merge or mark tickets Done automatically.
 
+## Engineering quality
+
+The [build reference](skills/cadence/references/build.md) explicitly requires investigation of existing architecture and reuse, a criterion-driven implementation plan, appropriate SOLID/DRY/KISS application, input validation and error/security handling, practical RED → GREEN → REFACTOR, meaningful regression coverage, real application verification, and internal review. Review corrections must be reverified against affected tests, user flows, and acceptance criteria. Missing evidence remains BLOCKED; a passing review or human approval cannot substitute for verification.
+
 ## Current limitations
 
 This release candidate is aligned with the inspected Cadence source. Structural checks passed; authenticated end-to-end execution and installation across agent hosts remain unverified.
