@@ -1,74 +1,69 @@
-# Cadence skills
+# Appstrax skills
 
-Create well-defined tickets and implement them through reviewed pull requests using the [Cadence](https://cadence.codecapsules.io/) MCP server.
+Reusable agent skills maintained by Appstrax. Each skill lives in its own folder and can be installed independently into supported coding agents.
+
+## Available skills
+
+| Skill | Purpose | Setup and usage |
+| --- | --- | --- |
+| `cadence` | Create code-informed tickets and implement them through reviewed pull requests using Cadence MCP. | [Cadence README](skills/cadence/README.md) |
 
 ## Install
 
-Run from the project where you want to use Cadence:
+List the available skills:
 
 ```sh
-npx skills add appstrax/cadence-skills --skill cadence
+npx skills add appstrax/appstrax-skills --list
 ```
 
-Select your supported coding agent when prompted. Add `-g` for a user-wide installation. The Skills CLI currently requires Node.js 22.20 or later.
-
-Install [Superpowers](https://github.com/obra/superpowers#installation) using its instructions for your agent, and install Frontend Design for UI work:
+Install a selected skill into Claude Code and Codex:
 
 ```sh
-npx skills add anthropics/skills --skill frontend-design
+npx skills add appstrax/appstrax-skills --skill cadence -a claude-code -a codex
 ```
 
-The Cadence install command installs the skill files. It does not automatically install these dependencies or authenticate the MCP connection.
+Run from the target project for a project installation. Add `-g` to install globally. Remove either agent option if you only want one; omit the agent options for interactive selection. The Skills CLI currently requires Node.js 22.20 or later. See its [installation reference](https://github.com/vercel-labs/skills/blob/main/docs/commands.md).
 
-## Connect Cadence
+Each skill's README documents its required connections, dependencies, and supported workflows. Installation copies the skill files; it does not automatically authenticate services or install every dependency. If Cadence is missing from Claude Code on macOS, follow the [discovery fix](skills/cadence/README.md#macos-cadence-does-not-appear-in-claude-code).
 
-Configure a Streamable HTTP MCP connection to:
+## Repository structure
 
 ```text
-https://cadence.codecapsules.io/mcp
+appstrax-skills/
+├── README.md                         # Catalog and repository-wide guidance
+└── skills/
+    └── cadence/
+        ├── SKILL.md                  # Agent instructions and metadata
+        ├── README.md                 # Human setup, usage, and troubleshooting
+        ├── INSTALL.md                # Detailed Cadence dependency/MCP setup
+        ├── RELEASE-NOTES.md          # Cadence release status and limitations
+        ├── agents/
+        │   └── openai.yaml           # Optional host metadata
+        └── references/               # Workflow details loaded when needed
 ```
 
-Authenticate using your agent's supported OAuth flow or a personal agent token from **Cadence → Settings → Agent tokens**. Do not commit credentials.
+Add each future skill as a sibling: `skills/<skill-name>/`. Only Cadence exists today. The `skills/` convention lets installers discover multiple skills while `--skill <name>` selects the desired one.
 
-See the [installation guide](INSTALL.md) for connection instructions, required permissions, dependencies, and compatibility.
+Keep each skill self-contained: runtime instructions, references, scripts, and assets it needs must live inside its folder. Installers may copy only that folder. Keep repository-wide documentation at the root and skill-specific documentation with its skill. Create optional `scripts/`, `assets/`, or `agents/` directories only when a skill needs them; do not create empty placeholder skills.
 
-## Use
+## Add a skill
 
-Use your agent's native skill invocation. For example, in Codex:
+1. Create `skills/<skill-name>/SKILL.md` with YAML `name` and `description`. Use a unique lowercase hyphenated name matching the folder.
+2. Add a README with install/usage instructions, requirements, and limitations.
+3. Keep the agent entrypoint focused; put substantial conditional guidance in `references/` and link it from `SKILL.md`.
+4. Add the skill to the catalog above. Verify local links, frontmatter, and realistic requests before publishing.
+5. Verify discovery with `npx skills add ./ --list` and test installation in an isolated target project/agent.
 
-```text
-$cadence setup
-$cadence create Add CSV export for the sprint report
-$cadence build CAD-12,CAD-15
+Follow the [Agent Skills specification](https://agentskills.io/specification). Do not put credentials or machine-specific paths in skills, and do not require files from another skill folder at runtime unless its installation is explicitly managed. No root `SKILL.md` is needed: the repository is a collection, not one skill.
+
+## Updates
+
+```sh
+# Run from the project for project-installed skills
+npx skills update cadence -p
+
+# For a global installation
+npx skills update cadence -g
 ```
 
-Agents that support a `/cadence` command can use the equivalent syntax. You can also ask your agent to use the Cadence skill in plain language.
-
-- **Create:** inspects the repository, clarifies material ambiguity, resolves project/sprint placement, writes outcome-focused tickets, and estimates Fibonacci story points.
-- **Build:** resolves ticket dependencies, investigates and plans, implements and verifies, requests human approval before committing/publishing, and follows up on external review with a three-round limit.
-- **Setup:** checks the MCP connection, project mapping, permissions, skills, and token-accounting support.
-
-Successful builds leave the ticket **In Review**. Measured Token effort is recorded when the PR has passed review; the workflow does not merge or mark tickets Done automatically.
-
-## Engineering quality
-
-The [build reference](skills/cadence/references/build.md) explicitly requires investigation of existing architecture and reuse, a criterion-driven implementation plan, appropriate SOLID/DRY/KISS application, input validation and error/security handling, practical RED → GREEN → REFACTOR, meaningful regression coverage, real application verification, and internal review. Review corrections must be reverified against affected tests, user flows, and acceptance criteria. Missing evidence remains BLOCKED; a passing review or human approval cannot substitute for verification.
-
-## Current limitations
-
-This release candidate is aligned with the inspected Cadence source. Structural checks passed; authenticated end-to-end execution and installation across agent hosts remain unverified.
-
-The inspected Cadence version does not support epics, project ticket templates, sprint enable/disable settings, or structured ticket dependencies. The skill uses the supplied default template and reports unsupported capabilities. Exact token accounting requires trustworthy host telemetry; it never invents a number.
-
-See [release notes and capability gaps](RELEASE-NOTES.md) and the [MCP contract](skills/cadence/references/mcp-contract.md).
-
-## Repository layout
-
-```text
-skills/cadence/
-  SKILL.md
-  agents/openai.yaml
-  references/
-```
-
-The skill core follows the [Agent Skills format](https://agentskills.io/specification). MCP setup, plugin installation, command syntax, and token telemetry vary by agent host. Third-party skill contents are not bundled in this repository.
+Use the installed skill's name to update a different skill. If your installation records the old repository name, rerun `skills add` against `appstrax/appstrax-skills` using the same scope and agent choices. See each skill's README for any additional upgrade steps.

@@ -8,16 +8,18 @@ Keep the skill portable. Ship optional plugin wrappers per tested host for easie
 
 ## Installation
 
+See the [Cadence README](README.md) for quick installation, updates, and the [macOS Claude Code discovery fix](README.md#macos-cadence-does-not-appear-in-claude-code).
+
 1. Install `skills/cadence/` into the target agent's supported skill directory or use its skill installer with this local folder. Resolve the existing Cadence skill-name collision deliberately; do not overwrite an existing skill silently.
 2. Install Superpowers using its host-specific guide: https://github.com/obra/superpowers#installation . This is preferred over copying its individual skills because host integration may include hooks.
 3. Install frontend-design from its upstream source: https://github.com/anthropics/skills/tree/main/skills/frontend-design . The supplied AgenticSkills page is a directory listing for this package.
 4. Connect Cadence MCP and authenticate as described below.
 5. Start/reload the agent as required for discovery and run `cadence setup` using its native skill invocation. Confirm identity, project/repository mapping, permissions, build dependencies, and token-accounting readiness.
 
-For agents supported by the open Skills CLI, an interactive installation path is available (Node.js 22.20+ according to its current documentation). Run from the target repository and choose the same intended agent(s) in each prompt:
+For agents supported by the open Skills CLI, an interactive installation path is available (Node.js 22.20+ according to its current documentation). Run from the target repository and choose the same intended agent(s) in each prompt. The Cadence command explicitly selects Claude Code and Codex; remove an agent option if it is not needed:
 
 ```sh
-npx skills add appstrax/cadence-skills --skill cadence
+npx skills add appstrax/appstrax-skills --skill cadence -a claude-code -a codex
 npx skills add obra/superpowers
 npx skills add anthropics/skills --skill frontend-design
 ```
@@ -55,7 +57,7 @@ $cadence create Add CSV export for the sprint report
 $cadence build CAD-12,CAD-15
 ```
 
-On a host that registers `/cadence`, use the equivalent slash command. Plain language such as “Use the Cadence skill to build CAD-12” remains a portable invocation intent.
+In Claude Code, use the equivalent `/cadence` slash command; the installed skill provides it automatically. Plain language such as “Use the Cadence skill to build CAD-12” remains a portable invocation intent.
 
 Setup asks for a project when no reliable repository mapping exists. Creation asks for sprint/backlog when unspecified. The inspected Cadence version lacks epics and project templates: it uses the default template and reports epics unsupported. The complete desired feature set needs the server changes listed in RELEASE-NOTES.md.
 
@@ -63,7 +65,7 @@ Setup asks for a project when no reliable repository mapping exists. Creation as
 
 Publish a versioned repository containing `skills/cadence/` and the installation documentation. End users can install from that repository with their supported skill installer. A single onboarding flow can guide installation of all three packages plus MCP authentication, but the Agent Skills format has no portable transitive-dependency installation contract.
 
-For one-click installation on a particular host, build and test that host's plugin manifest, dependency handling, and OAuth connection. Keep that wrapper separate from the portable core. The source repository is https://github.com/appstrax/cadence-skills. No host-specific marketplace listing is included.
+For one-click installation on a particular host, build and test that host's plugin manifest, dependency handling, and OAuth connection. Keep that wrapper separate from the portable core. The source repository is https://github.com/appstrax/appstrax-skills. No host-specific marketplace listing is included.
 
 References:
 
