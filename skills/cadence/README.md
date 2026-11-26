@@ -84,7 +84,7 @@ $cadence create Add CSV export for the sprint report
 $cadence build CAD-12,CAD-15
 ```
 
-In Claude Code, use `/cadence setup`, `/cadence create ...`, or `/cadence build CAD-12,CAD-15`. Installing the skill in a Claude Code skill location exposes `/cadence`; no separate command registration is required. You can also ask your agent to use the skill in plain language.
+In Claude Code, use `/cadence setup`, `/cadence create ...`, or `/cadence build CAD-12,CAD-15`. Installing the skill in a Claude Code skill location exposes `/cadence`; no separate command registration is required. When you type `/cadence`, Claude Code's autocomplete shows the accepted forms: `create <definition> | build <id>[,<id>...] | setup`. Keep this hint (the `argument-hint` field in `SKILL.md`) in step with the routes in `SKILL.md`. You can also ask your agent to use the skill in plain language.
 
 - **Create:** inspects the repository, clarifies material ambiguity, resolves project/sprint placement, writes outcome-focused tickets, and estimates Fibonacci story points.
 - **Build:** resolves ticket dependencies, investigates and plans, implements and verifies, requests human approval before committing/publishing, and follows up on external review with a three-round limit.

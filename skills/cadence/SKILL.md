@@ -1,6 +1,7 @@
 ---
 name: cadence
 description: Create well-defined Cadence tickets from repository context, or implement specified Cadence tickets through planning, verification, human approval, and reviewed pull requests using the Cadence MCP server.
+argument-hint: "create <definition> | build <id>[,<id>...] | setup"
 ---
 
 # Cadence
