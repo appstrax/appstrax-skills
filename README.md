@@ -7,6 +7,7 @@ Reusable agent skills maintained by Appstrax. Each skill lives in its own folder
 | Skill | Purpose | Setup and usage |
 | --- | --- | --- |
 | `cadence` | Create code-informed tickets and implement them through reviewed pull requests using Cadence MCP. | [Cadence README](skills/cadence/README.md) |
+| `timetracker` | Log and review time entries in Time Tracker using its MCP server. | [Time Tracker README](skills/timetracker/README.md) |
 
 ## Install
 
