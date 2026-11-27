@@ -1,0 +1,11 @@
+interface:
+  display_name: "Time Tracker"
+  short_description: "Log and review time in Time Tracker"
+  default_prompt: "Use $timetracker to log hours or review my logged time."
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "timetracker"
+      description: "Time Tracker time entries"
+      transport: "streamable_http"
+      url: "https://time-tracker-api-nxms.codecapsules.co.za/mcp"
